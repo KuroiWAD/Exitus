@@ -21,12 +21,14 @@ public class EgressoService {
 	@Autowired
 	private EnderecoService enderecoService;
 	
+	//BUSCAR
 	public Egresso find(Integer id) {
 		Optional<Egresso> egresso = repository.findById(id);
 		return egresso.orElseThrow(() -> new ObjectNotFoundException(
 				"Egresso não encontrado! ID: " + id + ", Tipo: " , Egresso.class.getName()));
 	}
 	
+	//INSERIR
 	@Transactional
 	public Egresso insert(Egresso egresso) {
 		Integer enderecoId = egresso.getEndereco().getId();
@@ -35,12 +37,14 @@ public class EgressoService {
 		return repository.save(egresso);
 	}
 
+	//ATUALIZAR
 	public Egresso update(Egresso egresso) {
 		Egresso newEgresso = find(egresso.getId());
 		updateData(newEgresso, egresso);
 		return repository.save(newEgresso);
 	}
 	
+	//REMOVER
 	public void delete(Integer id) {
 		find(id);
 		try {
