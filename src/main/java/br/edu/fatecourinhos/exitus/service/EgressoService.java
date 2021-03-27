@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.fatecourinhos.exitus.domain.Egresso;
-import br.edu.fatecourinhos.exitus.domain.Endereco;
 import br.edu.fatecourinhos.exitus.repository.EgressoRepository;
 
 @Service
@@ -18,8 +17,6 @@ public class EgressoService {
 	@Autowired
 	private EgressoRepository repository;
 	
-	@Autowired
-	private EnderecoService enderecoService;
 	
 	//BUSCAR
 	public Egresso find(Integer id) {
@@ -31,9 +28,9 @@ public class EgressoService {
 	//INSERIR
 	@Transactional
 	public Egresso insert(Egresso egresso) {
-		Integer enderecoId = egresso.getEndereco().getId();
-		Endereco endereco = enderecoService.find(enderecoId);
-		egresso.setEnderecos(endereco);
+//		Integer enderecoId = egresso.getEndereco().getId();
+//		Endereco endereco = enderecoService.find(enderecoId);
+//		egresso.setEnderecos(endereco);
 		return repository.save(egresso);
 	}
 

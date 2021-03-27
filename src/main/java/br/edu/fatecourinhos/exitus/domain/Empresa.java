@@ -20,19 +20,19 @@ public class Empresa implements Serializable {
 	private String cnpj;
 	
 	@ManyToOne
-	private Cidade cidade;
+	private Endereco endereco;
 	
 	public Empresa() {
 		
 	}
 
-	public Empresa(Integer id, String razaoSocial, String nomeFantasia, String cnpj, Cidade cidade) {
+	public Empresa(Integer id, String razaoSocial, String nomeFantasia, String cnpj, Endereco endereco) {
 		super();
 		this.id = id;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.cnpj = cnpj;
-		this.cidade = cidade;
+		this.endereco = endereco;
 	}
 
 	public Integer getId() {
@@ -67,12 +67,12 @@ public class Empresa implements Serializable {
 		this.cnpj = cnpj;
 	}
 
-	public Cidade getCidade() {
-		return cidade;
+	public Endereco getEndereco() {
+		return endereco;
 	}
 
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	@Override

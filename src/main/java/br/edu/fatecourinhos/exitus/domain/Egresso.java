@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Egresso implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -30,13 +28,15 @@ public class Egresso implements Serializable {
 
 	@ManyToOne
 	private Endereco endereco;
-	
-	@JsonIgnore
+
 	@OneToMany
 	private List<Telefone> telefones = new ArrayList<>();
-	
+
 	@ManyToOne
 	private Emprego emprego;
+
+	@OneToMany
+	private List<Curso> cursos = new ArrayList<>();
 
 	public Egresso() {
 	}
@@ -115,7 +115,7 @@ public class Egresso implements Serializable {
 		return endereco;
 	}
 
-	public void setEnderecos(Endereco endereco) {
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
 
@@ -133,6 +133,14 @@ public class Egresso implements Serializable {
 
 	public void setEmprego(Emprego emprego) {
 		this.emprego = emprego;
+	}
+
+	public List<Curso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(List<Curso> cursos) {
+		this.cursos = cursos;
 	}
 
 	@Override
