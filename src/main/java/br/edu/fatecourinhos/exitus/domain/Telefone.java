@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import br.edu.fatecourinhos.exitus.domain.enums.TipoTelefone;
 
@@ -19,10 +18,6 @@ public class Telefone implements Serializable {
 	private Integer id;
 	private String numero;
 	private TipoTelefone tipo;
-	
-	@ManyToOne
-	private Egresso egresso;
-	
 	
 	public Telefone() {
 		
