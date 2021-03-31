@@ -1,11 +1,16 @@
 package br.edu.fatecourinhos.exitus.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Curso implements Serializable {
@@ -15,6 +20,10 @@ public class Curso implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "id.curso")
+	private Set<EgressoCurso> cursos = new HashSet<>();
 	
 	public Curso () {
 		
@@ -25,6 +34,15 @@ public class Curso implements Serializable {
 		this.id = id;
 		this.nome = nome;
 	}
+	
+//	@JsonIgnore
+//	public List<Egresso> getEgressos() {
+//		List<Egresso> lista = new ArrayList<>();
+//		for (Egresso x : itens) {
+//			lista.add(x.getPedido());
+//		}
+//		return lista;
+//	}
 
 	public Integer getId() {
 		return id;
@@ -40,6 +58,14 @@ public class Curso implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Set<EgressoCurso> getCursos() {
+		return cursos;
+	}
+
+	public void setCursos(Set<EgressoCurso> cursos) {
+		this.cursos = cursos;
 	}
 
 	@Override

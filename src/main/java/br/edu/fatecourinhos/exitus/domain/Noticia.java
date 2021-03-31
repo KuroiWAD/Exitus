@@ -1,12 +1,14 @@
 package br.edu.fatecourinhos.exitus.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class Noticia implements Serializable {
@@ -16,6 +18,9 @@ public class Noticia implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String titulo;
+	
 	private String descricacao;
-	private Date dataCadastro;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataCadastro;
 }

@@ -15,5 +15,7 @@ public class Administrador implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	private String telefoneFixo;
+	private String telefoneCelular;
 	
 }

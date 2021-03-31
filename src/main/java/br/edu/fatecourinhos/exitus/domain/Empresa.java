@@ -19,6 +19,9 @@ public class Empresa implements Serializable {
 	private String nomeFantasia;
 	private String cnpj;
 	
+	private String telefoneFixo;
+	private String telefoneCelular;
+	
 	@ManyToOne
 	private Endereco endereco;
 	
@@ -26,13 +29,16 @@ public class Empresa implements Serializable {
 		
 	}
 
-	public Empresa(Integer id, String razaoSocial, String nomeFantasia, String cnpj, Endereco endereco) {
+	public Empresa(Integer id, String razaoSocial, String nomeFantasia, String cnpj, String telefoneFixo,
+			String telefoneCelular, Endereco endereco) {
 		super();
 		this.id = id;
 		this.razaoSocial = razaoSocial;
 		this.nomeFantasia = nomeFantasia;
 		this.cnpj = cnpj;
 		this.endereco = endereco;
+		this.telefoneFixo = telefoneFixo;
+		this.telefoneCelular = telefoneCelular;
 	}
 
 	public Integer getId() {
@@ -65,6 +71,22 @@ public class Empresa implements Serializable {
 
 	public void setCnpj(String cnpj) {
 		this.cnpj = cnpj;
+	}
+
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
 	}
 
 	public Endereco getEndereco() {

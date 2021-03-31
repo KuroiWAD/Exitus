@@ -1,9 +1,10 @@
 package br.edu.fatecourinhos.exitus.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,28 +22,29 @@ public class Egresso implements Serializable {
 	private String nome;
 	private String rg;
 	private String cpf;
+	private String ra;
 	private String email;
 
 	private String usuario;
 	private String senha;
 
+	private String telefoneFixo;
+	private String telefoneCelular;
+
 	@ManyToOne
 	private Endereco endereco;
-
-	@OneToMany
-	private List<Telefone> telefones = new ArrayList<>();
 
 	@ManyToOne
 	private Emprego emprego;
 
-	@OneToMany
-	private List<Curso> cursos = new ArrayList<>();
+	@OneToMany(mappedBy = "id.egresso", cascade = CascadeType.ALL)
+	private Set<EgressoCurso> cursos = new HashSet<>();
 
 	public Egresso() {
 	}
 
 	public Egresso(Integer id, String nome, String rg, String cpf, String email, String usuario, String senha,
-			Endereco endereco, Emprego emprego) {
+			Endereco endereco, Emprego emprego, String telefoneFixo, String telefoneCelular) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -53,6 +55,8 @@ public class Egresso implements Serializable {
 		this.senha = senha;
 		this.endereco = endereco;
 		this.emprego = emprego;
+		this.telefoneFixo = telefoneFixo;
+		this.telefoneCelular = telefoneCelular;
 	}
 
 	public Integer getId() {
@@ -77,6 +81,14 @@ public class Egresso implements Serializable {
 
 	public void setRg(String rg) {
 		this.rg = rg;
+	}
+
+	public String getRa() {
+		return ra;
+	}
+
+	public void setRa(String ra) {
+		this.ra = ra;
 	}
 
 	public String getCpf() {
@@ -111,20 +123,28 @@ public class Egresso implements Serializable {
 		this.senha = senha;
 	}
 
+	public String getTelefoneFixo() {
+		return telefoneFixo;
+	}
+
+	public void setTelefoneFixo(String telefoneFixo) {
+		this.telefoneFixo = telefoneFixo;
+	}
+
+	public String getTelefoneCelular() {
+		return telefoneCelular;
+	}
+
+	public void setTelefoneCelular(String telefoneCelular) {
+		this.telefoneCelular = telefoneCelular;
+	}
+
 	public Endereco getEndereco() {
 		return endereco;
 	}
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
-	}
-
-	public List<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
 	}
 
 	public Emprego getEmprego() {
@@ -135,11 +155,11 @@ public class Egresso implements Serializable {
 		this.emprego = emprego;
 	}
 
-	public List<Curso> getCursos() {
+	public Set<EgressoCurso> getCursos() {
 		return cursos;
 	}
 
-	public void setCursos(List<Curso> cursos) {
+	public void setCursos(Set<EgressoCurso> cursos) {
 		this.cursos = cursos;
 	}
 

@@ -1,12 +1,16 @@
 package br.edu.fatecourinhos.exitus.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 
 @Entity
 public class VagaEmprego implements Serializable {
@@ -17,9 +21,15 @@ public class VagaEmprego implements Serializable {
 	private Integer id;
 	private String vaga;
 	private String descricacao;
-	private Date dataCadastro;
-	private Date dataInicio;
-	private Date dataFim;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataCadastro;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataInicio;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataFim;
 	
 	//private Empresa empresa;
 

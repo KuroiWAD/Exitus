@@ -1,5 +1,7 @@
 package br.edu.fatecourinhos.exitus.resource;
 
+import java.net.URI;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.edu.fatecourinhos.exitus.domain.Egresso;
 import br.edu.fatecourinhos.exitus.service.EgressoService;
@@ -34,8 +37,12 @@ public class EgressoResource {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Egresso insert(@Valid @RequestBody Egresso egresso) {
-		return service.insert(egresso);
+	public ResponseEntity<Egresso> insert(@Valid @RequestBody Egresso egresso) {
+		
+		egresso = service.insert(egresso);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(egresso.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+		
 	}
 	
 	@PutMapping("/{id}")

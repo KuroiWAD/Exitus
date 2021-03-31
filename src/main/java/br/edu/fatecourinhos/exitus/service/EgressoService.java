@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.edu.fatecourinhos.exitus.domain.Egresso;
+import br.edu.fatecourinhos.exitus.domain.EgressoCurso;
 import br.edu.fatecourinhos.exitus.repository.EgressoRepository;
 
 @Service
@@ -16,32 +17,36 @@ public class EgressoService {
 
 	@Autowired
 	private EgressoRepository repository;
-	
-	
-	//BUSCAR
+
+	// BUSCAR
 	public Egresso find(Integer id) {
 		Optional<Egresso> egresso = repository.findById(id);
-		return egresso.orElseThrow(() -> new ObjectNotFoundException(
-				"Egresso não encontrado! ID: " + id + ", Tipo: " , Egresso.class.getName()));
-	}
-	
-	//INSERIR
-	@Transactional
-	public Egresso insert(Egresso egresso) {
-//		Integer enderecoId = egresso.getEndereco().getId();
-//		Endereco endereco = enderecoService.find(enderecoId);
-//		egresso.setEnderecos(endereco);
-		return repository.save(egresso);
+		return egresso.orElseThrow(() -> new ObjectNotFoundException("Egresso não encontrado! ID: " + id + ", Tipo: ",
+				Egresso.class.getName()));
 	}
 
-	//ATUALIZAR
+	// INSERIR
+	@Transactional
+	public Egresso insert(Egresso egresso) {
+		egresso.setId(null);
+
+		egresso = repository.save(egresso);
+
+		for (EgressoCurso ec : egresso.getCursos()) {
+			ec.setEgresso(egresso);
+		}
+		Egresso egressoSalvo = repository.save(egresso);
+		return egressoSalvo;
+	}
+
+	// ATUALIZAR
 	public Egresso update(Egresso egresso) {
 		Egresso newEgresso = find(egresso.getId());
 		updateData(newEgresso, egresso);
 		return repository.save(newEgresso);
 	}
-	
-	//REMOVER
+
+	// REMOVER
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -50,7 +55,7 @@ public class EgressoService {
 			throw new DataIntegrityViolationException("Não foi possível deletar o id informado: " + id);
 		}
 	}
-	
+
 	private void updateData(Egresso newEgresso, Egresso egresso) {
 		newEgresso.setNome(egresso.getNome());
 		newEgresso.setEmail(egresso.getEmail());
@@ -58,6 +63,9 @@ public class EgressoService {
 		newEgresso.setRg(egresso.getRg());
 		newEgresso.setSenha(egresso.getSenha());
 		newEgresso.setUsuario(egresso.getUsuario());
+		newEgresso.setTelefoneCelular(egresso.getTelefoneCelular());
+		newEgresso.setTelefoneFixo(egresso.getTelefoneFixo());
+		newEgresso.setCursos(egresso.getCursos());
 	}
 
 }
