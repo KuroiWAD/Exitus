@@ -24,6 +24,7 @@ public class CursoService {
 
 	// INSERIR
 	public Curso insert(Curso curso) {
+		curso.setId(null);
 		return repository.save(curso);
 	}
 

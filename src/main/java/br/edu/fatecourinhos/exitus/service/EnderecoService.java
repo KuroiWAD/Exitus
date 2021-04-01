@@ -25,6 +25,7 @@ public class EnderecoService {
 
 	// INSERIR
 	public Endereco insert(Endereco endereco) {
+		endereco.setId(null);
 		return repository.save(endereco);
 	}
 
